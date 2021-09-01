@@ -24,7 +24,7 @@ val prepareChangelog by tasks.creating {
         val changelog = file("CHANGELOG.md")
         val changelogText = changelog.readText()
         changelog.apply {
-            writeText("# Version $version : ${SimpleDateFormat("yyyy-MM-dd").format(Date())}\n")
+            writeText("# Version $version : ${SimpleDateFormat("yyyy-MM-dd").format(Date())}\n\n")
             appendText("$releases\n\n")
             appendText(changelogText)
         }
