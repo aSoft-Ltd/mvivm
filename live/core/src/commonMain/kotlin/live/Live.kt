@@ -1,8 +1,8 @@
 package live
 
-expect class Live<T>(v: T) {
-    var value: T
-    fun watch(callable: (T) -> Unit): Watcher<T>
-    fun stop(watcher: Watcher<T>): Boolean
+expect class Live<S>(state: S) {
+    var value: S
+    fun watch(callable: (state: S) -> Unit): Watcher<S>
+    fun stop(watcher: Watcher<S>): Boolean
     fun stopAll()
 }

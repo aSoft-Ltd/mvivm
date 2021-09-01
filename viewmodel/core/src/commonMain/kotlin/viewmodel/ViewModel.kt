@@ -13,7 +13,7 @@ abstract class ViewModel<in I, S> @JvmOverloads constructor(
     scope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 ) : PlatformViewModel() {
     internal val logger = logger(this::class.simpleName ?: "Anonymous ViewModel")
-    val ui = Live(initialState)
+    val ui : Live<S> = Live(initialState)
     open val coroutineScope = scope
 
     init {

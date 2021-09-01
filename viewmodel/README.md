@@ -1,8 +1,6 @@
 # ViewModel
 
-![badge][badge-maven] ![badge][badge-mpp] ![badge][badge-android] ![badge][badge-js] ![badge][badge-jvm]
-
-A kotlin multiplatform solution to logging
+A kotlin multiplatform solution to authoring viewmodels
 
 ## Samples
 
@@ -27,13 +25,14 @@ class CounterViewModel : VModel<Intent, State>(State(0)) {
 
 ```kotlin
 dependencies {
-    implementation("tz.co.asoft:viewmodel-core:0.0.93") //
+    implementation("tz.co.asoft:viewmodel-core:<version>") //
     // or
-    implementation("tz.co.asoft:viewmodel-react:0.0.93") // if using intended to be used in kotlin/react 
+    implementation("tz.co.asoft:viewmodel-react:<version>") // if using intended to be used in kotlin/react 
 }
 ```
 
 ## Compatibility
+
 |ViewModel Version|Kotlin Version|
 |-----------------|--------------|
 |0.0.93           | 1.5.10       |

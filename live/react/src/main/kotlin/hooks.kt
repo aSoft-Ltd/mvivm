@@ -1,9 +1,8 @@
-package live
+@file:JsExport
 
+import live.Live
 import react.*
 
-@JsExport
-@JsName("useLive")
 fun <S> useLive(live: Live<S>): S {
     val (state, setState) = useState(live.value)
     rawUseEffect({

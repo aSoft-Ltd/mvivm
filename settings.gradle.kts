@@ -93,6 +93,9 @@ project(":live-react").projectDir = File("live/react")
 include(":viewmodel-core")
 project(":viewmodel-core").projectDir = File("viewmodel/core")
 
+include(":viewmodel-react")
+project(":viewmodel-react").projectDir = File("viewmodel/react")
+
 include(":viewmodel-test-core")
 project(":viewmodel-test-core").projectDir = File("viewmodel/test/core")
 

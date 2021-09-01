@@ -3,20 +3,20 @@ package live
 import kotlinx.atomic.collections.mutableAtomicListOf
 import kotlinx.atomicfu.atomic
 
-actual class Live<T> actual constructor(v: T) {
-    private val atomic = atomic(v)
-    actual var value: T
+actual class Live<S> actual constructor(state: S) {
+    private val atomic = atomic(state)
+    actual var value: S
         set(value) {
             atomic.value = value
             for (watcher in watchers) watcher.callable(value)
         }
         get() = atomic.value
 
-    private val watchers = mutableAtomicListOf<Watcher<T>>()
+    private val watchers = mutableAtomicListOf<Watcher<S>>()
 
-    actual fun watch(callable: (T) -> Unit): Watcher<T> = watch(watchers, callable)
+    actual fun watch(callable: (state: S) -> Unit): Watcher<S> = watch(watchers, callable)
 
-    actual fun stop(watcher: Watcher<T>) = watchers.remove(watcher)
+    actual fun stop(watcher: Watcher<S>) = watchers.remove(watcher)
 
     actual fun stopAll() = watchers.clear()
 }
