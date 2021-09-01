@@ -30,6 +30,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('gradle/gradle-wrapper.*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
       - name: Cache konan
         uses: actions/cache@v2
         with:
@@ -38,6 +39,13 @@ jobs:
             ~/.konan/kotlin-native-macos*
           key: ${{ runner.os }}-konan-
           restore-keys: ${{ runner.os }}-konan-
+
+      - name: Cache node-modules
+        uses: actions/cache@v2
+        with:
+          path: ./build/js/node_modules
+          key: ${{ runner.os }}-node-modules-
+          restore-keys: ${{ runner.os }}-node-modules-
 
       - name: Making gradlew executable
         run: chmod +x ./gradlew
