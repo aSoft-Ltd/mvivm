@@ -1,2 +1,3 @@
 - [x] Publishing with versions
+- [x] Cached node_modules on CI environment
 - [ ] Migrate kotlinx-coroutines to the kotlinx repository
