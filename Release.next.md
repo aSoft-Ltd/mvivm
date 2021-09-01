@@ -1,8 +1,6 @@
-# Version 0.1.0 : 2021-09-01
 - Initial release
 - Published to maven central
 - Updated to gradle version 7.1.1
 - Update readme
 - Added samples
 - Migrate kotlinx-coroutines to the kotlinx repository <pending>
-

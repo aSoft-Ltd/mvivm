@@ -12,7 +12,7 @@ env:
 
 jobs:
   publish-artifacts:
-    runs-ons: macos-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 16
@@ -41,8 +41,16 @@ jobs:
       - name: Making gradlew executable
         run: chmod +x ./gradlew
         working-directory: .
+      - name: Warm up the jvm
+        run: ./gradlew tasks
+        working-directory: .
+      - name: Building the project
+        run: ./gradlew build
+        working-directory: .
       - name: Publishing artifacts to sonatype
         run: ./gradlew publish
       - name: Closing and Releasing Repositories
         run: ./gradlew :viewmodel-core:closeAndReleaseRepository
         working-directory: .
+      - name: Create Release
+        run: ./gradlew createRelease
