@@ -19,6 +19,6 @@ kotlin {
 }
 
 aSoftOSSLibrary(
-    version = project.version.toString(),
+    version = asoft.versions.mvivm.get(),
     description = "A multiplatfrom library to help test viewmodels"
 )

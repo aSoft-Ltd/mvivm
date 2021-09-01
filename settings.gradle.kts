@@ -13,7 +13,7 @@ pluginManagement {
         }
 
         val asoft = object {
-            val mvivm = "0.1.0"
+            val mvivm = "0.1.10"
             val collections = "0.0.10"
             val logging = "0.0.33"
             val expect = "0.0.42"

@@ -39,6 +39,6 @@ kotlin {
 }
 
 aSoftOSSLibrary(
-    version = project.version.toString(),
+    version = asoft.versions.mvivm.get(),
     description = "A Patch to provide universal dispatchers"
 )

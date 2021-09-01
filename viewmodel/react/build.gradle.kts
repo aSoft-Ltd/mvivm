@@ -25,6 +25,6 @@ kotlin {
 }
 
 aSoftOSSLibrary(
-    version = version.toString(),
+    version = asoft.versions.mvivm.get(),
     description = "A kotlin/js library to handle viewmodels in an MVVMI architecture from react"
 )

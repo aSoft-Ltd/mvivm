@@ -11,10 +11,8 @@ plugins {
 }
 
 allprojects {
-    afterEvaluate {
-        group = "tz.co.asoft"
-        version = asoft.versions.mvivm.get()
-    }
+    group = "tz.co.asoft"
+    version = asoft.versions.mvivm.get()
 }
 
 val releases = file("Release.next.md").readText()
