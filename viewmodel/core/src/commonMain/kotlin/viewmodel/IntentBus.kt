@@ -1,13 +1,34 @@
 package viewmodel
 
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.universal.Dispatchers
+import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
-open class IntentBus<I>(val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob())) {
+@JsExport
+open class IntentBus<I> @JvmOverloads constructor(
+    val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+) {
     private val INTENT_BUS = MutableSharedFlow<I>(replay = 0)
+
+    private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        val checkPhrase = "Module with the Main dispatcher is missing"
+        if (throwable.message?.contains(checkPhrase) == true) {
+            println(
+                """
+                $checkPhrase:
+                This is okay if you are only testing your viewmodels
+                This will blow up on production if you wont include a main dispather
+                i.e. coroutines-android, coroutines-javafx, e.t.c 
+            """.trimIndent()
+            )
+        } else throw throwable
+    }
 
     fun post(i: I) {
         coroutineScope.launch {
@@ -15,9 +36,9 @@ open class IntentBus<I>(val coroutineScope: CoroutineScope = CoroutineScope(Supe
         }
     }
 
-    open suspend fun collect(collector: suspend (I) -> Unit) {
+    private suspend fun collect(collector: suspend (I) -> Unit) {
         INTENT_BUS.collect(collector)
     }
 
-    fun ViewModel<I, *>.observeIntentBus() = coroutineScope.launch { collect { post(it) } }
+    fun ViewModel<I, *>.observeIntentBus() = coroutineScope.launch(context = exceptionHandler) { collect { post(it) } }
 }

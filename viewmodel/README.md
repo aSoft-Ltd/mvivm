@@ -1,8 +1,8 @@
-# MVIVM
+# ViewModel
 
 ![badge][badge-maven] ![badge][badge-mpp] ![badge][badge-android] ![badge][badge-js] ![badge][badge-jvm]
 
-A collection of kotlin multiplatform libs to facilitate the MVIVM architecture while authoring authoring multiplatform applications
+A kotlin multiplatform solution to logging
 
 ## Samples
 
@@ -27,18 +27,18 @@ class CounterViewModel : VModel<Intent, State>(State(0)) {
 
 ```kotlin
 dependencies {
-    implementation("tz.co.asoft:viewmodel-core:0.1.0") //
+    implementation("tz.co.asoft:viewmodel-core:0.0.93") //
     // or
-    implementation("tz.co.asoft:viewmodel-react:0.1.0") // if using intended to be used in kotlin/react 
+    implementation("tz.co.asoft:viewmodel-react:0.0.93") // if using intended to be used in kotlin/react 
 }
 ```
 
 ## Compatibility
 |ViewModel Version|Kotlin Version|
 |-----------------|--------------|
-| 0.1.0           | 1.5.10       |
+|0.0.93           | 1.5.10       |
 
-[badge-maven]: https://img.shields.io/maven-central/v/tz.co.asoft/viewmodel-core/0.1.0?style=flat
+[badge-maven]: https://img.shields.io/maven-central/v/tz.co.asoft/viewmodel-core/0.0.93?style=flat
 
 [badge-mpp]: https://img.shields.io/badge/kotlin-multiplatform-blue?style=flat
 

@@ -53,20 +53,17 @@ pluginManagement {
                 version("mvivm", vers.asoft.mvivm)
                 alias("expect-core").to(group, "expect-core").version(vers.asoft.expect)
                 alias("expect-coroutines").to(group, "expect-coroutines").version(vers.asoft.expect)
-                alias("kotlinx-atomic-collections").to(group, "kotlinx-atomic-collections")
-                    .version(vers.asoft.collections)
+                alias("kotlinx-atomic-collections").to(group, "kotlinx-atomic-collections").version(vers.asoft.collections)
                 alias("logging-console").to(group, "logging-console").version(vers.asoft.logging)
                 alias("reakt-core").to(group, "reakt-core").version(vers.asoft.reakt)
+                alias("test-coroutines").to(group, "test-coroutines").version(vers.asoft.test)
             }
 
             create("kotlinx") {
                 val group = "org.jetbrains.kotlinx"
-                alias("coroutines-core").to(group, "kotlinx-coroutines-core")
-                    .version(vers.kotlinx.coroutines)
-                alias("coroutines-android").to(group, "kotlinx-coroutines-android")
-                    .version(vers.kotlinx.coroutines)
-                alias("coroutines-test").to(group, "kotlinx-coroutines-test")
-                    .version(vers.kotlinx.coroutines)
+                alias("coroutines-core").to(group, "kotlinx-coroutines-core").version(vers.kotlinx.coroutines)
+                alias("coroutines-android").to(group, "kotlinx-coroutines-android").version(vers.kotlinx.coroutines)
+                alias("coroutines-test").to(group, "kotlinx-coroutines-test").version(vers.kotlinx.coroutines)
             }
 
             create("androidx") {
@@ -79,6 +76,14 @@ pluginManagement {
 
 rootProject.name = "mvivm"
 
+// utils
+include(":kotlinx-coroutines-core")
+project(":kotlinx-coroutines-core").projectDir = File("kotlinx/coroutines/core")
+
+include(":kotlinx-coroutines-test")
+project(":kotlinx-coroutines-test").projectDir = File("kotlinx/coroutines/test")
+
+
 include(":live-core")
 project(":live-core").projectDir = File("live/core")
 
@@ -87,3 +92,9 @@ project(":live-react").projectDir = File("live/react")
 
 include(":viewmodel-core")
 project(":viewmodel-core").projectDir = File("viewmodel/core")
+
+include(":viewmodel-test-core")
+project(":viewmodel-test-core").projectDir = File("viewmodel/test/core")
+
+include(":viewmodel-test-expect")
+project(":viewmodel-test-expect").projectDir = File("viewmodel/test/expect")

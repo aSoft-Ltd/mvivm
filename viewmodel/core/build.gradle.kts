@@ -17,6 +17,7 @@ kotlin {
                 api(kotlinx.coroutines.core)
                 api(asoft.logging.console)
                 api(project(":live-core"))
+                api(project(":kotlinx-coroutines-core"))
             }
         }
 

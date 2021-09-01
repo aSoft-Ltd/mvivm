@@ -1,12 +1,17 @@
 package viewmodel
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.universal.Dispatchers
 import live.Live
 import logging.logger
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
-abstract class ViewModel<in I, S>(initialState: S, scope: CoroutineScope = MainScope()) : PlatformViewModel() {
+abstract class ViewModel<in I, S> @JvmOverloads constructor(
+    initialState: S,
+    scope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+) : PlatformViewModel() {
     internal val logger = logger(this::class.simpleName ?: "Anonymous ViewModel")
     val ui = Live(initialState)
     open val coroutineScope = scope

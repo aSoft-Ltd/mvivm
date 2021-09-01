@@ -80,24 +80,13 @@
 
 - Added `VComponent` in viewmodel-react
 
-# 0.0.1
+# 0.1.0 : 2021-09-01
 
 ## Availability
 
-- Published to maven central
-
-## Build Src
-
-- Updated to gradle version 6.7.1
-
-## New Features
-
-- Initial release
-
-## Documentation
-
-- Update readme
-
-## Samples
-
-- Added samples
+- [x] Initial release
+- [x] Published to maven central
+- [x] Updated to gradle version 7.1.1
+- [x] Update readme
+- [x] Added samples
+- [ ] Migrate kotlinx-coroutines to the kotlinx repository
