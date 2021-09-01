@@ -12,7 +12,7 @@ env:
 
 jobs:
   publish-artifacts:
-    runs-on: macos-latest
+    runs-ons: macos-latest
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 16
@@ -22,8 +22,12 @@ jobs:
       - name: Cache Gradle
         uses: actions/cache@v2
         with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            ~/.gradle/yarn
+            ~/.gradle/nodejs
+          key: ${{ runner.os }}-gradle-${{ hashFiles('gradle/gradle-wrapper.*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Cache konan
@@ -37,18 +41,8 @@ jobs:
       - name: Making gradlew executable
         run: chmod +x ./gradlew
         working-directory: .
-      - name: Publishing viewmodel-core
-        run: ./gradlew :viewmodel-core:publish
-        working-directory: .
-      - name: Publishing viewmodel-react
-        run: ./gradlew :viewmodel-react:publish
-        working-directory: .
-      - name: Publishing viewmodel-test-core
-        run: ./gradlew :viewmodel-test-core:publish
-        working-directory: .
-      - name: Publishing viewmodel-test-expect
-        run: ./gradlew :viewmodel-test-expect:publish
-        working-directory: .
+      - name: Publishing artifacts to sonatype
+        run: ./gradlew publish
       - name: Closing and Releasing Repositories
         run: ./gradlew :viewmodel-core:closeAndReleaseRepository
         working-directory: .

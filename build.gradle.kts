@@ -14,3 +14,18 @@ subprojects {
         version = asoft.versions.mvivm.get()
     }
 }
+
+val createRelease by tasks.creating {
+    doLast {
+        exec {
+            commandLine(
+                "curl",
+                "-X", "POST",
+                "-H", "application/vnd.github.v3+json",
+                "-H", "Authorization: token ${System.getenv("GH_TOKEN")}",
+                "https://api.github.com/repos/aSoft-Ltd/mvivm/releases",
+                "-d", """{"tag_name":"v0.0.1","name":"Version 0.0.1" }""",
+            )
+        }
+    }
+}
