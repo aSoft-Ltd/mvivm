@@ -54,8 +54,11 @@ jobs:
       - name: Building viewmodel
         run: ./gradlew :viewmodel-core:build :viewmodel-react:build
 
-      - name: Building viewmodel-test
-        run: ./gradlew :viewmodel-test-core:build :viewmodel-test-expect:build
+      - name: Building viewmodel-test-core
+        run: ./gradlew :viewmodel-test-core:build
+
+      - name: Running tests for viewmodel-test-expect
+        run: ./gradlew :viewmodel-test-expect:jvmTest :viewmodel-test-expect:jsTest :viewmodel-test-expect:linuxX64Test
 
       - name: Publishing artifacts to sonatype
         run: ./gradlew publish
