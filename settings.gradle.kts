@@ -26,7 +26,7 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             if (requested.id.namespace == "com.android") {
-                useModule("com.android.tools.build:gradle:${requested.version}")
+                useModule("com.android.tools.build:gradle:${vers.agp}")
             }
         }
     }
@@ -49,23 +49,29 @@ pluginManagement {
     dependencyResolutionManagement {
         versionCatalogs {
             create("asoft") {
+                val group = "tz.co.asoft"
                 version("mvivm", vers.asoft.mvivm)
-                alias("expect-core").to(
-                    "tz.co.asoft",
-                    "expect-core"
-                ).version(vers.asoft.expect)
-                alias("expect-coroutines").to(
-                    "tz.co.asoft",
-                    "expect-coroutines"
-                ).version(vers.asoft.expect)
-                alias("kotlinx-atomic-collections").to(
-                    "tz.co.asoft",
-                    "kotlinx-atomic-collections"
-                ).version(vers.asoft.collections)
-                alias("reakt-core").to(
-                    "tz.co.asoft",
-                    "reakt-core"
-                ).version(vers.asoft.reakt)
+                alias("expect-core").to(group, "expect-core").version(vers.asoft.expect)
+                alias("expect-coroutines").to(group, "expect-coroutines").version(vers.asoft.expect)
+                alias("kotlinx-atomic-collections").to(group, "kotlinx-atomic-collections")
+                    .version(vers.asoft.collections)
+                alias("logging-console").to(group, "logging-console").version(vers.asoft.logging)
+                alias("reakt-core").to(group, "reakt-core").version(vers.asoft.reakt)
+            }
+
+            create("kotlinx") {
+                val group = "org.jetbrains.kotlinx"
+                alias("coroutines-core").to(group, "kotlinx-coroutines-core")
+                    .version(vers.kotlinx.coroutines)
+                alias("coroutines-android").to(group, "kotlinx-coroutines-android")
+                    .version(vers.kotlinx.coroutines)
+                alias("coroutines-test").to(group, "kotlinx-coroutines-test")
+                    .version(vers.kotlinx.coroutines)
+            }
+
+            create("androidx") {
+                alias("lifecycle-viewmodel-ktx").to("androidx.lifecycle", "lifecycle-viewmodel-ktx")
+                    .version(vers.androidx.lifecycle)
             }
         }
     }
@@ -78,3 +84,6 @@ project(":live-core").projectDir = File("live/core")
 
 include(":live-react")
 project(":live-react").projectDir = File("live/react")
+
+include(":viewmodel-core")
+project(":viewmodel-core").projectDir = File("viewmodel/core")

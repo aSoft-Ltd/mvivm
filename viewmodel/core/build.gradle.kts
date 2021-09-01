@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
-
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
@@ -16,22 +14,22 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("org.jetbrains.kotlinx:kotlinx-coroutines-core:${vers.kotlinx.coroutines}")
-                api(asoft("logging-console", vers.asoft.logging))
-                api(asoft("live-core", vers.asoft.live))
+                api(kotlinx.coroutines.core)
+                api(asoft.logging.console)
+                api(project(":live-core"))
             }
         }
 
         val commonTest by getting {
             dependencies {
-                api(asoft("expect-coroutines", vers.asoft.expect))
+                api(asoft.expect.coroutines)
             }
         }
 
         val androidMain by getting {
             dependencies {
-                api("androidx.lifecycle:lifecycle-viewmodel-ktx:${vers.androidx.lifecycle}")
-                api("org.jetbrains.kotlinx:kotlinx-coroutines-android:${vers.kotlinx.coroutines}")
+                api(androidx.lifecycle.viewmodel.ktx)
+                api(kotlinx.coroutines.android)
             }
         }
 
@@ -50,14 +48,14 @@ kotlin {
 
         val jvmTest by getting {
             dependencies {
-                api(kotlinx("coroutines-test", vers.kotlinx.coroutines))
+                implementation(kotlinx.coroutines.test)
             }
         }
 
         val jsMain by getting {
             dependsOn(nonAndroidMain)
         }
-        
+
         for (target in nativeTargets) {
             val main by target.compilations.getting {
                 defaultSourceSet {
@@ -75,6 +73,6 @@ kotlin {
 }
 
 aSoftOSSLibrary(
-    version = vers.asoft.viewmodel,
-    description = "A multiplatfrom library to handling viewmodel in an MVIVM architecture"
+    version = project.version.toString(),
+    description = "A multiplatfrom library for authoring viewmodel in an MVIVM architecture"
 )
