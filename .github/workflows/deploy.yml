@@ -38,19 +38,32 @@ jobs:
             ~/.konan/kotlin-native-macos*
           key: ${{ runner.os }}-konan-
           restore-keys: ${{ runner.os }}-konan-
+
       - name: Making gradlew executable
         run: chmod +x ./gradlew
-        working-directory: .
+
       - name: Warm up the jvm
         run: ./gradlew tasks
-        working-directory: .
-      - name: Building the project
-        run: ./gradlew build
-        working-directory: .
+
+      - name: Building kotlinx
+        run: ./gradlew :kotlinx-coroutines-core:build :kotlinx-coroutines-test:build
+
+      - name: Building live
+        run: ./gradlew :live-core:build :live-react:build
+
+      - name: Building viewmodel
+        run: ./gradlew :viewmodel-core:build :viewmodel-react:build
+
+      - name: Building viewmodel-test
+        run: ./gradlew :viewmodel-test-core:build :viewmodel-test-expect:build
+
       - name: Publishing artifacts to sonatype
         run: ./gradlew publish
+
       - name: Closing and Releasing Repositories
         run: ./gradlew :viewmodel-core:closeAndReleaseRepository
-        working-directory: .
+
       - name: Create Release
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: ./gradlew createRelease

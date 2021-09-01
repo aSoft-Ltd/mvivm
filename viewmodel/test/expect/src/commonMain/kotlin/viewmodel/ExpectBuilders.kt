@@ -11,14 +11,10 @@ import kotlin.jvm.JvmName
 
 fun <I, S, V : ViewModel<I, S>> expect(viewModel: V) = ViewModelExpectation(viewModel)
 
-suspend fun <I, S> ViewModel<I, S>.expectIn(dispatcher: CoroutineDispatcher, intent: I): ViewModelStateExpectation<S> {
+suspend fun <I, S> ViewModel<I, S>.expect(intent: I, with: CoroutineDispatcher = Dispatchers.Universal): ViewModelStateExpectation<S> {
     val states = mutableAtomicListOf<S>()
     val watcher = ui.watch { states.add(it) }
-    withContext(dispatcher) {
-        start(intent)
-    }
+    withContext(with) { start(intent) }
     watcher.stop()
     return ViewModelStateExpectation(states.takeLast(states.size - 1))
 }
-
-suspend fun <I, S> ViewModel<I, S>.expect(intent: I) = expectIn(Dispatchers.Universal, intent)

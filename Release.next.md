@@ -1,6 +1,7 @@
-- Initial release
-- Published to maven central
-- Updated to gradle version 7.1.1
-- Update readme
-- Added samples
-- Migrate kotlinx-coroutines to the kotlinx repository <pending>
+- [x] Initial release
+- [x] Published to maven central
+- [x] Updated to gradle version 7.1.1
+- [x] Update readme
+- [x] Added samples
+- [x] gave the expect function to take a default dispatcher for testing
+- [ ] Migrate kotlinx-coroutines to the kotlinx repository
