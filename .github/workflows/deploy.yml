@@ -53,9 +53,6 @@ jobs:
       - name: Warm up the jvm
         run: ./gradlew tasks
 
-      - name: Building kotlinx
-        run: ./gradlew :kotlinx-coroutines-core:build :kotlinx-coroutines-test:build
-
       - name: Building live
         run: ./gradlew :live-core:build :live-react:build
 
