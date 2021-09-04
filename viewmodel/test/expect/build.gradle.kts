@@ -13,9 +13,9 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":viewmodel-test-core"))
-                api(project(":kotlinx-coroutines-test"))
                 api(asoft.expect.coroutines)
-                api(asoft.kotlinx.atomic.collections)
+                api(asoft.kotlinx.coroutines.test)
+                api(asoft.kotlinx.collections.atomic)
             }
         }
     }

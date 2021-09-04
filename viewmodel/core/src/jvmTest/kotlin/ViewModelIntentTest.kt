@@ -1,17 +1,12 @@
 import CounterViewModel.Intent
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.asCoroutineDispatcher
+import CounterViewModel.State
+import expect.expect
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
-import logging.*
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
+import kotlinx.coroutines.runTest
+import logging.ConsoleAppender
+import logging.Logging
 import viewmodel.ViewModel
-import test.asyncTest
-import java.util.concurrent.Executors
-import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
+import viewmodel.expect
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -23,29 +18,15 @@ class ViewModelIntentTest {
     init {
         Logging.init(ConsoleAppender())
     }
-    
-    private val mainDispatcher = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
-
-    @BeforeTest
-    fun setup() {
-        Dispatchers.setMain(mainDispatcher)
-    }
-
-    @AfterTest
-    fun tearDown() {
-        Dispatchers.resetMain()
-        mainDispatcher.close()
-    }
 
     @Test
-    fun state_should_follow_intents() = asyncTest {
+    fun state_should_follow_intents() = runTest {
         val vm = CounterViewModel()
-        assertEquals(0, vm.countState)
+        expect(vm.countState).toBe(0)
         delay(10)
-        vm.post(Intent.CountUp(1))
-        assertEquals(1, vm.countState)
+        vm.expect(Intent.CountUp(1)).toGoThrough(State(1))
 
-        CounterViewModel.post(Intent.CountUp(2))
+        vm.expect(Intent.CountUp(2)).toGoThrough(State(3))
         delay(10)
         assertEquals(3, vm.countState)
     }

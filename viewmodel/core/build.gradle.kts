@@ -17,13 +17,14 @@ kotlin {
                 api(kotlinx.coroutines.core)
                 api(asoft.logging.console)
                 api(project(":live-core"))
-                api(project(":kotlinx-coroutines-core"))
             }
         }
 
         val commonTest by getting {
             dependencies {
-                api(asoft.expect.coroutines)
+                implementation(project(":viewmodel-test-expect"))
+                implementation(asoft.kotlinx.coroutines.test)
+                implementation(asoft.expect.coroutines)
             }
         }
 
@@ -45,12 +46,6 @@ kotlin {
 
         val jvmMain by getting {
             dependsOn(nonAndroidMain)
-        }
-
-        val jvmTest by getting {
-            dependencies {
-                implementation(kotlinx.coroutines.test)
-            }
         }
 
         val jsMain by getting {

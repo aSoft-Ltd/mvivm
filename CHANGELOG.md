@@ -1,3 +1,9 @@
+# Version 0.1.20 : 2021-09-04
+
+- Migrate kotlinx-coroutines to the kotlinx repository
+- Removed the useViewModel and viewModel hooks
+- Migrated versions to gradle/versions/*.toml
+
 # Version 0.1.10 : 2021-09-01
 
 - [x] Publishing with versions

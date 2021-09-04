@@ -1,6 +1,6 @@
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.universal.runTest
+import kotlinx.coroutines.runTest
 import viewmodel.CounterViewModel
 import viewmodel.CounterViewModel.Intent
 import viewmodel.CounterViewModel.State

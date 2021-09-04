@@ -1,8 +1,8 @@
 import CounterViewModel.Intent
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.runTest
 import logging.ConsoleAppender
 import logging.Logging
-import test.asyncTest
 import viewmodel.ViewModel
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -17,7 +17,7 @@ class ViewModelIntentTest {
     }
 
     @Test
-    fun state_should_follow_intents() = asyncTest {
+    fun state_should_follow_intents() = runTest {
         val vm = CounterViewModel()
         assertEquals(0, vm.countState)
         delay(10)

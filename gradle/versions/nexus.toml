@@ -1,0 +1,5 @@
+[versions]
+publish = "0.22.0"
+
+[plugins]
+publish = { id = "io.codearte.nexus-staging", version.ref = "publish" }

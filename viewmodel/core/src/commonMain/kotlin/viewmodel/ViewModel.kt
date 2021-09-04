@@ -1,7 +1,9 @@
 package viewmodel
 
-import kotlinx.coroutines.*
-import kotlinx.coroutines.universal.Dispatchers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import live.Live
 import logging.logger
 import kotlin.js.JsExport
@@ -10,11 +12,11 @@ import kotlin.jvm.JvmOverloads
 @JsExport
 abstract class ViewModel<in I, S> @JvmOverloads constructor(
     initialState: S,
-    scope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+    scopeBuilder: () -> CoroutineScope = { CoroutineScope(SupervisorJob() + Dispatchers.Main) }
 ) : PlatformViewModel() {
     internal val logger = logger(this::class.simpleName ?: "Anonymous ViewModel")
-    val ui : Live<S> = Live(initialState)
-    open val coroutineScope = scope
+    val ui: Live<S> = Live(initialState)
+    open val coroutineScope by lazy(scopeBuilder)
 
     init {
         ui.watch { log("State at ${it?.toDetailedString}") }

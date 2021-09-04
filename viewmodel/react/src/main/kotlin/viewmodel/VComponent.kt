@@ -1,18 +1,15 @@
 package viewmodel
 
 import live.Watcher
-import react.RBuilder
-import react.RProps
-import react.RState
-import react.setState
+import react.*
 import reakt.Component
 import viewmodel.VComponent.UIState
 
-abstract class VComponent<P : RProps, I, S, V : ViewModel<I, S>> : Component<P, UIState<S>> {
+abstract class VComponent<P : Props, I, S, V : ViewModel<I, S>> : Component<P, UIState<S>> {
     abstract val viewModel: V
     protected var watcher: Watcher<S>? = null
 
-    class UIState<S>(var ui: S?) : RState
+    class UIState<S>(var ui: S?) : State
 
     constructor() : super()
 

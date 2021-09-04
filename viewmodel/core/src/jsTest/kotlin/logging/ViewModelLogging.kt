@@ -3,11 +3,11 @@
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.runTest
 import logging.ConsoleAppender
 import logging.Logging
 import logging.TodoViewModel
 import logging.TodoViewModel.Intent
-import test.asyncTest
 import kotlin.test.Test
 
 class ViewModelLogging {
@@ -19,7 +19,7 @@ class ViewModelLogging {
     val scope = CoroutineScope(SupervisorJob())
 
     @Test
-    fun should_print_logging_output() = asyncTest {
+    fun should_print_logging_output() = runTest {
         val vm = TodoViewModel(scope)
         delay(50)
         vm.post(Intent.ReInit)

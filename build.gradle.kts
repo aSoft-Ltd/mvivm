@@ -3,11 +3,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 plugins {
-    id("com.android.library") apply false
-    kotlin("multiplatform") apply false
-    kotlin("js") apply false
-    id("tz.co.asoft.library") apply false
-    id("io.codearte.nexus-staging") apply false
+    alias(androidx.plugins.library) apply false
+    alias(jetbrains.plugins.kotlin.multiplatform) apply false
+    alias(asoft.plugins.library) apply false
+    alias(nexus.plugins.publish) apply false
 }
 
 allprojects {

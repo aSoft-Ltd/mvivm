@@ -1,12 +1,8 @@
 package viewmodel
 
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.universal.Dispatchers
 import kotlin.js.JsExport
 import kotlin.jvm.JvmOverloads
 
@@ -16,19 +12,7 @@ open class IntentBus<I> @JvmOverloads constructor(
 ) {
     private val INTENT_BUS = MutableSharedFlow<I>(replay = 0)
 
-    private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        val checkPhrase = "Module with the Main dispatcher is missing"
-        if (throwable.message?.contains(checkPhrase) == true) {
-            println(
-                """
-                $checkPhrase:
-                This is okay if you are only testing your viewmodels
-                This will blow up on production if you wont include a main dispather
-                i.e. coroutines-android, coroutines-javafx, e.t.c 
-            """.trimIndent()
-            )
-        } else throw throwable
-    }
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable -> mainDispatcherMissingHandler(throwable) }
 
     fun post(i: I) {
         coroutineScope.launch {
@@ -40,5 +24,23 @@ open class IntentBus<I> @JvmOverloads constructor(
         INTENT_BUS.collect(collector)
     }
 
-    fun ViewModel<I, *>.observeIntentBus() = coroutineScope.launch(context = exceptionHandler) { collect { post(it) } }
+    fun ViewModel<I, *>.observeIntentBus() = try {
+        coroutineScope.launch(context = exceptionHandler) { collect { post(it) } }
+    } catch (err: Throwable) {
+        mainDispatcherMissingHandler(err)
+    }
+}
+
+private fun mainDispatcherMissingHandler(throwable: Throwable) {
+    val checkPhrase = "Module with the Main dispatcher is missing"
+    if (throwable.message?.contains(checkPhrase) == true) {
+        println(
+            """
+                $checkPhrase:
+                This is okay if you are only testing your viewmodels
+                This will blow up on production if you wont include a main dispather
+                i.e. coroutines-android, coroutines-javafx, e.t.c 
+            """.trimIndent()
+        )
+    } else throw throwable
 }

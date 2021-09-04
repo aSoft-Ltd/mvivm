@@ -13,7 +13,7 @@ import kotlin.jvm.JvmOverloads
 
 class TodoViewModel @JvmOverloads constructor(
     scope: CoroutineScope = MainScope()
-) : ViewModel<Intent, State>(State.Init, scope) {
+) : ViewModel<Intent, State>(State.Init, { scope }) {
 
     sealed interface State {
         object Init : State

@@ -22,7 +22,7 @@ kotlin {
         val nativeMain by creating {
             dependsOn(commonMain)
             dependencies {
-                api(asoft.kotlinx.atomic.collections)
+                api(asoft.kotlinx.collections.atomic)
             }
         }
 

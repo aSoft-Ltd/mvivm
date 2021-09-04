@@ -1,7 +1,7 @@
 package live
 
-import kotlinx.atomic.collections.mutableAtomicListOf
 import kotlinx.atomicfu.atomic
+import kotlinx.collections.atomic.mutableAtomicListOf
 
 actual class Live<S> actual constructor(state: S) {
     private val atomic = atomic(state)
