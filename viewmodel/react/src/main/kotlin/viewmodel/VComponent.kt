@@ -2,7 +2,6 @@ package viewmodel
 
 import live.Watcher
 import react.*
-import reakt.Component
 import viewmodel.VComponent.UIState
 
 abstract class VComponent<P : Props, I, S, V : ViewModel<I, S>> : Component<P, UIState<S>> {

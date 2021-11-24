@@ -1,0 +1,5 @@
+[versions]
+react = "17.0.2-pre.269-kotlin-1.6.0"
+
+[libraries]
+react = { module = "org.jetbrains.kotlin-wrappers:kotlin-react", version.ref = "react" }

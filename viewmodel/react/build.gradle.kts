@@ -10,7 +10,6 @@ kotlin {
     sourceSets {
         val main by getting {
             dependencies {
-                api(asoft.reakt.core)
                 api(project(":viewmodel-core"))
                 api(project(":live-react"))
             }

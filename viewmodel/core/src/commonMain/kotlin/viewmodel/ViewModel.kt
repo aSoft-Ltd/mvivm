@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import live.Live
+import logging.Logger
 import logging.logger
 import kotlin.js.JsExport
 import kotlin.jvm.JvmOverloads
@@ -12,11 +13,11 @@ import kotlin.jvm.JvmOverloads
 @JsExport
 abstract class ViewModel<in I, S> @JvmOverloads constructor(
     initialState: S,
-    scopeBuilder: () -> CoroutineScope = { CoroutineScope(SupervisorJob() + Dispatchers.Main) }
+    config: ViewModelConfig = ViewModelConfig()
 ) : PlatformViewModel() {
-    internal val logger = logger(this::class.simpleName ?: "Anonymous ViewModel")
+    val logger = config.logger
     val ui: Live<S> = Live(initialState)
-    open val coroutineScope by lazy(scopeBuilder)
+    open val coroutineScope by lazy(config.scopeBuilder)
 
     init {
         ui.watch { log("State at ${it?.toDetailedString}") }
@@ -38,7 +39,7 @@ abstract class ViewModel<in I, S> @JvmOverloads constructor(
         execute(i)
     }
 
-    abstract fun CoroutineScope.execute(i: I): Any
+    protected abstract fun CoroutineScope.execute(i: I): Any
 
     override fun onCleared() {
         ui.stopAll()

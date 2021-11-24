@@ -1,7 +1,6 @@
 [versions]
-mvivm = "0.1.20"
-foundation = "1.4.0"
-reakt = "0.1.20"
+mvivm = "0.1.21"
+foundation = "1.4.30"
 
 [libraries]
 expect-core = { module = "tz.co.asoft:expect-core", version.ref = "foundation" }
@@ -9,8 +8,8 @@ expect-coroutines = { module = "tz.co.asoft:expect-coroutines", version.ref = "f
 kotlinx-collections-atomic = { module = "tz.co.asoft:kotlinx-collections-atomic", version.ref = "foundation" }
 kotlinx-coroutines-test = { module = "tz.co.asoft:kotlinx-coroutines-test", version.ref = "foundation" }
 logging-console = { module = "tz.co.asoft:logging-console", version.ref = "foundation" }
-reakt-core = { module = "tz.co.asoft:reakt-core", version.ref = "reakt" }
 
 [plugins]
 applikation = { id = "tz.co.asoft.applikation", version.ref = "foundation" }
 library = { id = "tz.co.asoft.library", version.ref = "foundation" }
+deploy = { id = "tz.co.asoft.deploy", version.ref = "foundation" }
