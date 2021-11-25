@@ -5,6 +5,7 @@ import viewmodel.CounterViewModel
 import viewmodel.CounterViewModel.Intent
 import viewmodel.CounterViewModel.State
 import viewmodel.expect
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime
@@ -47,6 +48,7 @@ class ApiTest {
 
     @OptIn(ExperimentalTime::class)
     @Test
+    @Ignore
     fun should_take_500_second_to_build() = runTest {
         val vm = CounterViewModel(500)
         val time = measureTime {

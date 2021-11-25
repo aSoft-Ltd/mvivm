@@ -16,29 +16,27 @@ pluginManagement {
 
     dependencyResolutionManagement {
         versionCatalogs {
-            listOf("androidx", "asoft", "jetbrains", "kotlinx", "nexus").forEach {
+            file("gradle/versions").listFiles().map { it.nameWithoutExtension }.forEach {
                 create(it) { from(files("gradle/versions/$it.toml")) }
             }
         }
     }
 }
 
+fun includeRoot(name: String, path: String) {
+    include(":$name")
+    project(":$name").projectDir = File(path)
+}
+
+fun includeSubs(base: String, path: String = base, vararg subs: String) {
+    subs.forEach {
+        include(":$base-$it")
+        project(":$base-$it").projectDir = File("$path/$it")
+    }
+}
+
 rootProject.name = "mvivm"
 
-include(":live-core")
-project(":live-core").projectDir = File("live/core")
-
-include(":live-react")
-project(":live-react").projectDir = File("live/react")
-
-include(":viewmodel-core")
-project(":viewmodel-core").projectDir = File("viewmodel/core")
-
-include(":viewmodel-react")
-project(":viewmodel-react").projectDir = File("viewmodel/react")
-
-include(":viewmodel-test-core")
-project(":viewmodel-test-core").projectDir = File("viewmodel/test/core")
-
-include(":viewmodel-test-expect")
-project(":viewmodel-test-expect").projectDir = File("viewmodel/test/expect")
+includeSubs("live", "live", "core", "react", "compose", "coroutines")
+includeSubs("viewmodel", "viewmodel", "core", "react", "compose", "coroutines")
+includeSubs("viewmodel-test", "viewmodel/test", "core", "expect")

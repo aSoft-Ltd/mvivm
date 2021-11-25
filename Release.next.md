@@ -1,4 +1,2 @@
-- Migrate kotlinx-coroutines to the kotlinx repository
-- Removed the useViewModel and viewModel hooks
-- Migrated versions to gradle/versions/*.toml
-- Removed kotlinx implementations
+- Downgraded to kotlin 1.5.31 from 1.6.0
+- Upgraded asoft foundation to 1.4.40 from 1.4.30

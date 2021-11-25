@@ -8,6 +8,7 @@ import logging.ConsoleAppender
 import logging.Logging
 import logging.TodoViewModel
 import logging.TodoViewModel.Intent
+import viewmodel.ViewModelConfig
 import kotlin.test.Test
 
 class ViewModelLogging {
@@ -16,11 +17,13 @@ class ViewModelLogging {
         Logging.init(ConsoleAppender())
     }
 
-    val scope = CoroutineScope(SupervisorJob())
+    val config = ViewModelConfig(
+        builder = { CoroutineScope(SupervisorJob()) }
+    )
 
     @Test
     fun should_print_logging_output() = runTest {
-        val vm = TodoViewModel(scope)
+        val vm = TodoViewModel(config)
         delay(50)
         vm.post(Intent.ReInit)
     }

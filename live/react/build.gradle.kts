@@ -1,7 +1,6 @@
 plugins {
     kotlin("js")
     id("tz.co.asoft.library")
-    id("io.codearte.nexus-staging")
     signing
 }
 
@@ -11,7 +10,7 @@ kotlin {
         val main by getting {
             dependencies {
                 api(project(":live-core"))
-                api(asoft.reakt.core)
+                api(kotlinw.react)
             }
         }
         val test by getting {

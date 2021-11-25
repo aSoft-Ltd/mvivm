@@ -9,11 +9,12 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import viewmodel.ViewModel
+import viewmodel.ViewModelConfig
 import kotlin.jvm.JvmOverloads
 
 class TodoViewModel @JvmOverloads constructor(
-    scope: CoroutineScope = MainScope()
-) : ViewModel<Intent, State>(State.Init, { scope }) {
+    private val config: ViewModelConfig = ViewModelConfig()
+) : ViewModel<Intent, State>(State.Init, config) {
 
     sealed interface State {
         object Init : State
