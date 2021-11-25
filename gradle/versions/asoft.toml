@@ -1,6 +1,6 @@
 [versions]
-mvivm = "0.1.21"
-foundation = "1.4.30"
+mvivm = "0.1.30"
+foundation = "1.4.40"
 
 [libraries]
 expect-core = { module = "tz.co.asoft:expect-core", version.ref = "foundation" }
